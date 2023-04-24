@@ -5,7 +5,7 @@ import java.util.*;
 
 public class RealInput {
 	private ScannerInput sc = null;
-	
+
 	setOrder set = new setOrder();
 	//Scanner scanner = new Scanner(System.in);
 
@@ -18,16 +18,21 @@ public class RealInput {
 	private String strDiscount="";
 	private int age=0;
 	ScannerInput scan = new ScannerInput();
-	
+
 	public RealInput() {
 		sc = new ScannerInput();	
 	}
-	
-	
+
+
+	public void resetData() {
+	      totalSum=0;
+	      set.setReset();         
+	}
+
 	public int inputSelect() {
 
 		do {
-			set.setReset();
+			
 			System.out.println("select the type of ticket!");
 			System.out.print("1. A type\t2. B type\t3. C type\t4. D type: \n");
 			sc.setSelect();
@@ -44,12 +49,12 @@ public class RealInput {
 
 		do {
 			System.out.println("Please enter your resident registration number. (Input format: yymmdd1234567)");
-			
+
 			sc.setId();
 			len = sc.getId().length();
-			
+
 		}while( sc.getId().length() != 13  );
-		
+
 
 		//String id =scanner.next();
 		int year, month, day;
@@ -73,33 +78,34 @@ public class RealInput {
 		if ((current_month < month) || ((current_month == month) && (current_day < day))) {
 			age--;
 		}
-		
-		
+
+
 		System.out.println(age + " "+ sc.getSelect());
 		//return age;
 		if (age < ConstValueClass.MIN_CHILD) {
 			//select=0;
 			select = 0;
-			
-			
+
+
 			//return 0;
 		} else if (age < ConstValueClass.MIN_TEEN || age > ConstValueClass.MAX_ADULT) {
 			select = sc.getSelect() + 4;
-		} 
+		}
+		sc.setSelect(select);
 		select = sc.getSelect();
 	}
 
 
-	
-	
+
+
 	public void intputQuantity() {
 		//int quantity=0;
 		do {
 			System.out.println("How many would you like to order? (Up to 10)");
-			
+
 			sc.setQuantity();
 		} while(sc.getQuantity() > ConstValueClass.MAX_COUNT || sc.getQuantity() < ConstValueClass.MIN_COUNT);
-		
+
 		quantity = sc.getQuantity();
 	}
 
@@ -117,12 +123,13 @@ public class RealInput {
 		} while(!(sc.getDiscount() == 1 || sc.getDiscount() == 2 || sc.getDiscount() == 3||sc.getDiscount()==4));
 		discount= sc.getDiscount();
 	}
-	
-	
-	
+
+
+
 
 	public String selectDiscount(int discount) {
 		//strDiscount="";
+		//discount=sc.getDiscount();
 		switch (discount) {
 		case 1:
 			strDiscount = "*No special benefits";
@@ -140,11 +147,13 @@ public class RealInput {
 			strDiscount = "*Pregnancy benefits applied";
 			break;
 		}
+		//orderList.setStrDiscout(strDiscount);
+		System.out.println(strDiscount);
 		return strDiscount;	
 	}	
 
 	public int culPrice (int discount, int quantity) {;
-		
+		discount=sc.getDiscount();
 		switch (discount) {
 		case 0:
 			eachSum=0;
@@ -164,55 +173,59 @@ public class RealInput {
 			eachSum = (int)(ConstValueClass.PREGNANT_DISCOUNT_RATE * ConstValueClass.PRICE[select] * quantity);
 			break;
 		}
+		totalSum+=eachSum;
+		
 		return eachSum;
 
 	}
-	
-	
+
+
 	public void printPrice() {
+		discount=sc.getDiscount();
+		selectDiscount(discount);
 		culPrice (discount, quantity);
 		System.out.printf("The price is %d won.\n",eachSum);	
 		set.setOrders(select, quantity, eachSum, strDiscount);
 	}
-	
-	
-	
+
+
+
 	public int inputReStart() {
-		
+
 		System.out.println("Continue with ticket process?");		
 		System.out.println("1. ticket purchasing \n2. Quit\n");
 		sc.setClose();
 		return sc.getClose();
 	}
-	
+
 	public void printEndprintPrice() {
-	
-	
-		culPrice(discount, quantity);
+
+
+		//culPrice(discount, quantity);
 		System.out.println("\nTicket printing completed. Thank you\n");
 		System.out.println("==================== EverLand ====================");
-		
-		
-		
+
+
+
 		for(OrderList orderList : set.data) {
-			
+
 			//totalSum += orderList.getEachSum();
 			System.out.printf("%-15s  *  %3d  %10dWon   %-10s \n",
 					orderList.getTotalSelectToString(),orderList.getQuantity(),orderList.getEachSum(),orderList.getStrDiscout());
-			totalSum+=eachSum;
+			//totalSum+=eachSum;
 		}	
 		System.out.printf("The total admission fee is %d Won\n",totalSum);
 		System.out.println("==================================================");
 	}
 
-		
+
 	public int  intputEnd() {	
-		
+
 		System.out.println("Please select an option:     1 : New order, 2: End the program : ");
 		sc.setClose();
 		return sc.getClose();		
 	}
-	
+
 
 
 }

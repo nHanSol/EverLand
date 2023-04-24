@@ -18,7 +18,5 @@ public class setOrder {
 	public void setReset() {
 		data.clear();
 	}
-	
+
 }
-
-

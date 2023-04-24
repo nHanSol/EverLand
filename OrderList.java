@@ -9,6 +9,7 @@ public class OrderList {
 	private int quantity;
 	private int eachSum;
 	private String strDiscout;
+	private int totalSum;
 		
 	public int getSelect() {
 		return select;
@@ -36,10 +37,23 @@ public class OrderList {
 	}
 		
 	
+//	public void setTotalSelectToString(String strDiscout) {
+//		
+//		this.strDiscout = strDiscout;
+//		
+//	}
+
 	public String getTotalSelectToString() {
 		
 		return ConstValueClass.NAME[select];
 		
+	}
+	
+	public void setTotalSum(int totalSum ) {
+		this.totalSum = totalSum;
+	}
+	public int getTotalSum() {
+		return totalSum;
 	}
 
 	
