@@ -5,13 +5,24 @@ import java.util.Scanner;
 public class ScannerInput {
 	Scanner scanner = new Scanner(System.in);
 
-	private int select=0;
-	private int quantity=0;
-	private String id="";
-	private int discount=0;
+	private static int select=0;
+	private static int quantity=0;
+	private static String id="";
+	private static int discount=0;
 
 
 	private int eachSum=0;
+	private int chooseLanguage=0;
+		
+	public int getChooseLanguage() {
+		return chooseLanguage;
+	}
+
+
+	public void setChooseLanguage() {
+		chooseLanguage=scanner.nextInt();
+	}
+
 
 	public int getEachSum() {
 		return eachSum;
@@ -59,9 +70,7 @@ public class ScannerInput {
 	public void setClose() {
 		discount=scanner.nextInt();
 	}
-	public String getStrDiscoutToString() {   
-	      return ConstValueClass.DISCOUNT[discount];  // select를 인덱스 값으로 하여 ticket 이름으로 반영
-	}
+
 
 
 }

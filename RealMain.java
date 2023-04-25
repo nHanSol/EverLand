@@ -1,10 +1,17 @@
 package EverLandGo;
+import java.time.LocalDate;
+import java.util.Locale;
 
 public class RealMain {
 
 
 	public static void main(String[] args) {
+		
 
+		Locale currentLocale = Locale.getDefault();
+		System.out.println("local : " + currentLocale.getCountry());
+
+		PrintClass.startLanguage(currentLocale.getCountry());
 
 		// OrderList.setOrders(orderList);
 		RealInput input = new RealInput();
